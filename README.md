@@ -44,6 +44,16 @@ You should see any error messages on the output, or in the CloudFormation stack.
 
 This will create the basic Lambda function, which you can then execute in the console for demonstrations (or via API Gateway endpoint)
 
+## Create a CodeCommit repo
+
+The CI/CD Pipeline assumes you are using CodeCommit.
+
+Follow these steps to create a repo
+
+aws codecommit create-repository --repository-name "PyWeather-Demo"
+
+Then, simply add that as a new remote , and push to it. 
+
 ## Install CI/CD Pipeline
 
 This will create a CI/CD Pipeline that you can use for DevOps demos.
@@ -53,6 +63,8 @@ This CI/CD Pipeline will peacefully co-exist with manually deploying as describe
 The pipeline subfolder contains a CF template for a CodePipeline/CodeBuild/CloudFormation CI/CD pipeline.
 
 ./03-deploy-pipeline.sh 
+
+NOTE: The pipeline assumes you are using AWS CodeCommit - NOT GITHUB!
 
 ## Uninstall
 
