@@ -2,6 +2,19 @@
 
 This simple Lambda function invokes OpenWeatherMap.org API to retrieve the current weather for a city.
 
+
+# Architecture
+
+This is what will be created:
+
+![Diagram - PyWeather architecture](/diagrams/aws-pyweather-demo-arch.png)
+
+
+A CI/CD Pipeline is created as well:
+
+![Diagram - PyWeather CI/CD Pipeline](/diagrams/aws-pyweather-demo-pipeline.png)
+
+
 # Installation
 
 First, you must request an API Key from OpenWeatherMap.org, for the "Current Weather Data" API.
