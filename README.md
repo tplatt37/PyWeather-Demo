@@ -81,9 +81,13 @@ NOTE: The pipeline assumes you are using AWS CodeCommit - NOT GITHUB!
 
 ## Uninstall
 
-Simply delete both Cloudformation stacks.
+EMPTY the Artifact bucket first.
 
-Then, manually delete the SecretsManager secret.
+Delete the PyWeather-Demo stack FIRST
+
+Then, delete the Pipeline stack. 
+
+Finally, manually delete the SecretsManager secret (or leave it for next time)
 
 ## Requirements
 
