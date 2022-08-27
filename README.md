@@ -31,11 +31,13 @@ We'll store the OpenWeatherMap API key in Secrets manager.
 
 First, you'll need to create the Secret (replace YOUR_API_KEY_HERE with yours!)
 
+```
 aws secretsmanager create-secret --name "openweather-api-key" --secret-string '{"apikey":"YOUR_API_KEY_HERE"}'
 
 SECRETARN=$(aws secretsmanager describe-secret --secret-id openweather-api-key | jq -r '.ARN')
 
 echo $SECRETARN
+```
 
 ## Specify an S3 bucket to use for the sam build command
 
@@ -43,29 +45,42 @@ We just need any S3 bucket where any the code can be packaged via sam package co
 
 Replace YOUR_BUCKET_NAME with the name of a bucket in the same region as where you wish to deploy.
 
+```
 BUCKETNAME=YOUR_BUCKET_NAME
 
 echo $BUCKETNAME
+```
 
-## Install via SAM
+## Create a CodeCommit repo
 
+The CI/CD Pipeline assumes you are using CodeCommit (NOT GitHub)
+
+Follow these steps to create a repo
+```
+aws codecommit create-repository --repository-name "PyWeather-Demo"
+```
+
+Then, simply add that as a new remote , and push to it. 
+
+
+## Two Ways to Install
+
+The best way to install is to run the CI/CD Pipeline script.  This will create the CI/CD pipeline, which will automatically run and deploy the function too!
+
+```
+./03-deploy-pipeline.sh 
+```
+
+Or you can install the Lambda function itself first.
+
+```
 ./01-build.sh $BUCKETNAME
-
 ./02-deploy.sh $BUCKETNAME $SECRETARN
+```
 
 You should see any error messages on the output, or in the CloudFormation stack.
 
 This will create the basic Lambda function, which you can then execute in the console for demonstrations (or via API Gateway endpoint)
-
-## Create a CodeCommit repo
-
-The CI/CD Pipeline assumes you are using CodeCommit.
-
-Follow these steps to create a repo
-
-aws codecommit create-repository --repository-name "PyWeather-Demo"
-
-Then, simply add that as a new remote , and push to it. 
 
 ## Install CI/CD Pipeline
 
@@ -75,11 +90,15 @@ This CI/CD Pipeline will peacefully co-exist with manually deploying as describe
 
 The pipeline subfolder contains a CF template for a CodePipeline/CodeBuild/CloudFormation CI/CD pipeline.
 
+```
 ./03-deploy-pipeline.sh 
+```
 
 NOTE: The pipeline assumes you are using AWS CodeCommit - NOT GITHUB!
 
 ## Uninstall
+
+Follow this order precisely!
 
 EMPTY the Artifact bucket first.
 
