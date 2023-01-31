@@ -8,7 +8,7 @@ def lambda_handler(event, context):
     
     print(event)
     
-    print("Lambda function ARN:", context.invoked_function_arn)
+    print("Lambda function ARNn!!!!!!! 2222:", context.invoked_function_arn)
     print("Lambda function Version:", context.function_version)
     print("Lambda function memory limits in MB:", context.memory_limit_in_mb)
     
