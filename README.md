@@ -64,6 +64,7 @@ Then, simply add that as a new remote , and push to it.
 
 ```
 git remote add codecommit (SSH or HTTPS here)
+git push codecommit
 ```
 
 If you run 
@@ -87,6 +88,9 @@ The best way to install is to run the CI/CD Pipeline script.  This will create t
 ```
 ./03-deploy-pipeline.sh 
 ```
+
+NOTE that the CodeBuild project's buildspec will dynamically find the Secret given the name is static.
+
 
 Or you can install the Lambda function itself first.
 
@@ -122,7 +126,7 @@ Run
 ./uninstall.sh
 ```
 
-You should DELETE the PyWeather-Demo repository you created.
+You should DELETE the PyWeather-Demo CodeCommit repository you created.
 
 Finally, manually delete the SecretsManager secret (or leave it for next time)
 
