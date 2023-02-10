@@ -57,10 +57,27 @@ The CI/CD Pipeline assumes you are using CodeCommit (NOT GitHub)
 
 Follow these steps to create a repo
 ```
-aws codecommit create-repository --repository-name "PyWeather-Demo"
+aws codecommit create-repository --repository-name "PyWeather-Demo" --repository-description "TEMPORARY - Definitive version lives on GitHub"
 ```
 
 Then, simply add that as a new remote , and push to it. 
+
+```
+git remote add codecommit (SSH or HTTPS here)
+```
+
+If you run 
+```
+git remote -v
+```
+
+It should look like:
+```
+github  git@github.com:tplatt37/PyWeather-Demo.git (fetch)
+github  git@github.com:tplatt37/PyWeather-Demo.git (push)
+origin  ssh://git-codecommit.us-west-2.amazonaws.com/v1/repos/PyWeather-Demo (fetch)
+origin  ssh://git-codecommit.us-west-2.amazonaws.com/v1/repos/PyWeather-Demo (push)
+```
 
 
 ## Two Ways to Install
@@ -98,13 +115,14 @@ NOTE: The pipeline assumes you are using AWS CodeCommit - NOT GITHUB!
 
 ## Uninstall
 
-Follow this order precisely!
+To uninstall: 
 
-EMPTY the Artifact bucket first.
+Run
+```
+./uninstall.sh
+```
 
-Delete the PyWeather-Demo stack FIRST
-
-Then, delete the Pipeline stack. 
+You should DELETE the PyWeather-Demo repository you created.
 
 Finally, manually delete the SecretsManager secret (or leave it for next time)
 

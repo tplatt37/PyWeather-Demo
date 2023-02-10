@@ -24,6 +24,7 @@ Resources:
         # A CodeDeploy Application and DeploymentGroup will be created for this Lambda
         #The deployment configuration determines the rate at which your CodeDeploy application shifts traffic from the original version of the Lambda function to the new version. 
         # NOTE: This is a custom DeploymentConfig to do a 50/50 Canary for 5 minutes (good for demos!)
+        # This is defined in pipeline/pipeline.yaml
         Type: FiftyFiftyCanary
         # Specifies Lambda functions for deployment lifecycle hooks
         Hooks:

@@ -2,15 +2,23 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: A CodePipeline to build the PyWeatherLambda-Demo
 
 Parameters:
+
   BranchName:
     Description: CodeCommit branch name 
     Type: String
     Default: main
+    
   RepositoryName:
     Description: CodeCommit repository name
     Type: String
     Default: PyWeather-Demo
     
+  Prefix:
+    Type: String
+    Default: PyWeather-Demo
+    Description: "TThis will be used in naming various resources (Exports)."
+
+
 Resources:
 
 #
@@ -425,3 +433,10 @@ Resources:
                   - 's3:*'
                 Resource: '*'
 
+Outputs:
+  
+  ArtifactStoreBucket:
+    Description: Bucket for general purpose storage.
+    Value: !Ref ArtifactStoreBucket
+    Export:
+      Name: !Join ['-', [!Ref Prefix, 'ArtifactStoreBucket']]
