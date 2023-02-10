@@ -86,7 +86,7 @@ origin  ssh://git-codecommit.us-west-2.amazonaws.com/v1/repos/PyWeather-Demo (pu
 The best way to install is to run the CI/CD Pipeline script.  This will create the CI/CD pipeline, which will automatically run and deploy the function too!
 
 ```
-./03-deploy-pipeline.sh 
+./install.sh 
 ```
 
 NOTE that the CodeBuild project's buildspec will dynamically find the Secret given the name is static.
