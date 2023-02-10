@@ -117,6 +117,11 @@ The pipeline subfolder contains a CF template for a CodePipeline/CodeBuild/Cloud
 
 NOTE: The pipeline assumes you are using AWS CodeCommit - NOT GITHUB!
 
+## NOTE about the API Gateway
+
+It will NOT show up on the Lambda Trigger page, but it's there - go look in API Gateway console.
+The API is a REST API named "PyWeather-Demo"
+
 ## To Demo the 50/50 Canary
 
 1. Make a change to the app.py source code - change the Version number 1.0.0 (So it's visible via GET call)

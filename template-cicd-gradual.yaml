@@ -33,7 +33,7 @@ Resources:
           # Test the new verstion after we start allowing invocations
           PostTraffic: !Ref afterAllowTraffic
       Events:
-        PyWeatherDemo:
+        PyWeatherDemo5050:
           Type: Api 
           Properties:
             Path: /
