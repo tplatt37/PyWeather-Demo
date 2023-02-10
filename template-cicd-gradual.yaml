@@ -48,7 +48,7 @@ Resources:
       Principal: apigateway.amazonaws.com
       SourceAccount: !Ref 'AWS::AccountId'
       # Such as:
-      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*/*/PyWeatherDemo'
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/*/PyWeatherDemo'
       
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
   beforeAllowTraffic:
