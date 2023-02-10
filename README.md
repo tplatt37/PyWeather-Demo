@@ -117,6 +117,20 @@ The pipeline subfolder contains a CF template for a CodePipeline/CodeBuild/Cloud
 
 NOTE: The pipeline assumes you are using AWS CodeCommit - NOT GITHUB!
 
+## To Demo the 50/50 Canary
+
+1. Make a change to the app.py source code - change the Version number 1.0.0 (So it's visible via GET call)
+2. You MUST push to CodeCommit 
+```
+git commit -am "update" && git push codecommit
+```
+3. Watch CodeDeploy for the deployment.
+4. Use the REST API in API Gateway, which is utilizing the ":live" alias.   
+
+Don't try to use a manually created API - it must be pointed to :live alias.
+
+
+
 ## Uninstall
 
 To uninstall: 
