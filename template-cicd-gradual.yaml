@@ -34,12 +34,13 @@ Resources:
           # Test the new verstion after we start allowing invocations
           PostTraffic: !Ref afterAllowTraffic
       Events:
-        PyWeatherDemo5050:
+        PyWeatherDemo:
           Type: Api 
           Properties:
             Path: /
             Method: get
-  
+            
+  # This is needed so the API GW shows up in Lambda console 
   APIGWPermission:
     Type: AWS::Lambda::Permission
     Properties:
