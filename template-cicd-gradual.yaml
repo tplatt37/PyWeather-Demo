@@ -9,6 +9,7 @@ Parameters:
     Description: "Enter the ARN of the Secrets Manager Secret that holds the OpenWeatherMap API Key (You must create this yourself!)"
 
 Resources:
+
   PyWeatherDemo:
     Type: AWS::Serverless::Function 
     Properties:
@@ -38,7 +39,18 @@ Resources:
           Properties:
             Path: /
             Method: get
-            
+  
+  APIGWPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt PyWeatherDemo.Arn
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceAccount: !Ref 'AWS::AccountId'
+      # Such as:
+      # arn:aws:execute-api:us-west-2:753157545766:7k0tcka0ud/*/*/PyWeather
+      SourceArn: "arn:aws:execute-api:us-west-2:753157545766:*/*/*/PyWeatherDemo"
+      
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
   beforeAllowTraffic:
     Type: AWS::Serverless::Function
