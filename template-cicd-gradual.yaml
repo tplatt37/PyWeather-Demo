@@ -54,7 +54,10 @@ Resources:
       Principal: apigateway.amazonaws.com
       # Such as:
       # arn:partition:execute-api:region:account-id:api-id/stage/http-method/resource-path
-      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/*/weather'
+      # NOTE: ServerlessRestApi is an implicit things created via SAM when you use an Event of type Api:
+      # https://github.com/aws/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+      #
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
       
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
   beforeAllowTraffic:
