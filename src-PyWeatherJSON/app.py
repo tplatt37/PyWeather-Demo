@@ -12,20 +12,11 @@ import logging
 import requests
 import json
 import jsonpickle
-from aws_xray_sdk.core import xray_recorder
-from aws_xray_sdk.core import patch_all
 
 print("COLDSTART: Initializing...")
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
-# Configure the global recorder to disable sampling and instrument all incoming requests.
-xray_recorder.configure(sampling=False)
-
-# X-Ray To instrument HTTP clients, patch the library that you use to make outgoing calls.
-# If you use requests or Python's built in HTTP client, that's all you need to do.
-patch_all()
 
 def lambda_handler(event, context):
     
@@ -42,23 +33,11 @@ def lambda_handler(event, context):
     location = event['queryStringParameters']['city']
     
     print(location)
-    subsegment.put_annotation('city', location)
-    
     weather = get_weather(API_KEY, location)
  
     print(weather['main']['temp'])
     print(weather)  
     weather['PyWeatherFunctionVersion'] = context.function_version
-    
-    # Annotations are indexed for use with filters.
-    subsegment.put_annotation('temp', weather['main']['temp'])
-    subsegment.put_annotation('memlimit', context.memory_limit_in_mb)
-    xray_recorder.end_subsegment()
-    
-    # Metadata is not indexed for filtering
-    subsegment = xray_recorder.begin_subsegment('weather')
-    subsegment.put_metadata('weather', json.dumps(weather))
-    xray_recorder.end_subsegment()
     
     # This version returns PURE JSON - which is easier to handle in Step Functions State Machine
     # This version isn't compatible with API Gateway Proxy Integration
@@ -70,14 +49,12 @@ def lambda_handler(event, context):
     return json.loads("{\"feels_like\": " + str(weather['main']['feels_like'])  + ", \"city\": \"" + str(weather['name']) +"\"}")
     
     
-@xray_recorder.capture('get-weather-function')
 def get_weather(api_key, location):
     url = "https://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid={}".format(location, api_key)
     r = requests.get(url)
     
     return r.json()
 
-@xray_recorder.capture('get-secret-function')
 def get_secret():
 
     secret_name = "openweather-api-key"
