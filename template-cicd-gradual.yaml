@@ -15,7 +15,7 @@ Resources:
     Properties:
       CodeUri: src/
       Handler: app.lambda_handler
-      Runtime: python3.8
+      Runtime: python3.9
       # The AutoPublishAlias term tells the framework to detect when the function changes, and then deploy it using the live alias. 
       AutoPublishAlias: live
       Policies:
@@ -76,7 +76,7 @@ Resources:
             Action: 
               - "lambda:InvokeFunction"
             Resource: !Ref PyWeatherDemo.Version
-      Runtime: nodejs12.x
+      Runtime: nodejs16.x
       # Specifies the name of the Lambda hook function      
       FunctionName: 'CodeDeployHook_beforeAllowTraffic_PyWeatherDemo'
       DeploymentPreference:
@@ -108,7 +108,7 @@ Resources:
             Action: 
               - "lambda:InvokeFunction"
             Resource: !Ref PyWeatherDemo.Version
-      Runtime: nodejs12.x
+      Runtime: nodejs16.x
       # Specifies the name of the Lambda hook function      
       FunctionName: 'CodeDeployHook_afterAllowTraffic_PyWeatherDemo'
       DeploymentPreference:
@@ -125,7 +125,7 @@ Resources:
     Properties:
       CodeUri: src-PyWeatherJSON/
       Handler: app.lambda_handler
-      Runtime: python3.8
+      Runtime: python3.9
       Policies:
         - AWSSecretsManagerGetSecretValuePolicy:        # Policy template with placeholder value
             SecretArn: !Ref SecretArn
