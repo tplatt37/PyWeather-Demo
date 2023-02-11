@@ -28,8 +28,6 @@ def lambda_handler(event, context):
     print("Lambda function memory limits in MB:", context.memory_limit_in_mb)
     print("Lambda time remaining in MS:", context.get_remaining_time_in_millis())
     
-    subsegment = xray_recorder.begin_subsegment('get-weather-handler')
-    
     location = event['queryStringParameters']['city']
     
     print(location)
