@@ -50,6 +50,7 @@ Resources:
       # Not needed with SourceArn
       #SourceAccount: !Ref 'AWS::AccountId'
       # Such as:
+      #
       # arn:aws:execute-api:us-west-2:753157545766:bcqrirf0ck/*/GET/
       SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
       
