@@ -38,7 +38,7 @@ Resources:
           Type: Api 
           Properties:
             Path: /weather
-            Method: get
+            Method: any
             
   # This is needed so the API GW shows up in Lambda console 
   APIGWPermission:
