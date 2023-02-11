@@ -38,20 +38,22 @@ Resources:
           Type: Api 
           Properties:
             Path: /weather
-            Method: any
+            Method: get
             
   # This is needed so the API GW shows up in Lambda console 
+  # NOTE: This doesn't quite work 02/11/2023
+  # Possibly because SAM doesn't create an "ANY" method, it creates get/delete/put/post/etc.
+  # Possibly because it's creating stages Prod and Stage and not "default"?
+  # I'm leaving this in because it's still a useful pointer to remind that an API GW integration exists.
+  # TODO: Fix it!
   APIGWPermission:
     Type: AWS::Lambda::Permission
     Properties:
       FunctionName: !GetAtt PyWeatherDemo.Arn
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
-      # Not needed with SourceArn
-      #SourceAccount: !Ref 'AWS::AccountId'
       # Such as:
       # arn:partition:execute-api:region:account-id:api-id/stage/http-method/resource-path
-      # arn:aws:execute-api:us-west-2:753157545766:bcqrirf0ck/*/GET/
       SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/*/weather'
       
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
