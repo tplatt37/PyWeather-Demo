@@ -136,4 +136,4 @@ Outputs:
   # API Gateway endpoint as an output, for convenience
   PyWeatherDemoRESTApi:
     Description: "API Gateway endpoint URL for Prod stage - change the city as desired."
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/?city=Scranton"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/weather?city=Scranton"
