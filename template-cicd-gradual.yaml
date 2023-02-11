@@ -51,7 +51,7 @@ Resources:
       #SourceAccount: !Ref 'AWS::AccountId'
       # Such as:
       # arn:aws:execute-api:us-west-2:753157545766:bcqrirf0ck/*/GET/
-      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/get/weather'
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
       
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
   beforeAllowTraffic:
@@ -116,6 +116,18 @@ Resources:
       Environment:
         Variables:
           NewVersion: !Ref PyWeatherDemo.Version
+
+  # This is a simplified version of the PyWeather function 
+  # used specficially for a Step Functions State Machine demo.
+  PyWeatherJSON:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: src-PyWeatherJSON/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Policies:
+        - AWSSecretsManagerGetSecretValuePolicy:        # Policy template with placeholder value
+            SecretArn: !Ref SecretArn
 
 Outputs:
   # API Gateway endpoint as an output, for convenience
