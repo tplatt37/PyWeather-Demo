@@ -50,9 +50,9 @@ Resources:
       # Not needed with SourceArn
       #SourceAccount: !Ref 'AWS::AccountId'
       # Such as:
-      #
+      # arn:partition:execute-api:region:account-id:api-id/stage/http-method/resource-path
       # arn:aws:execute-api:us-west-2:753157545766:bcqrirf0ck/*/GET/
-      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/prod/get/weather'
       
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
   beforeAllowTraffic:
