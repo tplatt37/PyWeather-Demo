@@ -42,22 +42,20 @@ Resources:
           Properties:
             Path: /weather
             Method: get
-            
+  
+  # NOTE: When you use "Events" above SAM will create an Implicit AWS::Lambda::Permission
+  # (Check statck resources - you can see it there)
+  # BUT - it DOES NOT show up in the console or command line.
+  # This manualy entry theoretically makes the same settings, but isn't properly recognized by the console.
+  # However - it does ensure that the Trigger button is highlighted in the console, 
+  # So that is a good reminder that an API GW is set to trigger this lambda.
   APIGWPermission:
     Type: AWS::Lambda::Permission
     Properties:
       FunctionName: !Ref PyWeatherDemo
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
-      # Such as:
-      # arn:partition:execute-api:region:account-id:api-id/stage/http-method/resource-path
-      # NOTE: ServerlessRestApi is an implicit things created via SAM when you use an Event of type Api:
-      # https://github.com/aws/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-      #
-      # Run this via script?
-      # aws lambda add-permission --function-name my-function --action lambda:InvokeFunction --statement-id sns-my-topic \
-      # --principal sns.amazonaws.com --source-arn arn:aws:sns:us-east-2:123456789012:my-topic
-      #from: https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html#permissions-resource-cleanup
+      # NOTE: ServerlessRestApi is an implicit Logical ID created by SAM. You won't find it in this template.
       SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
       
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
