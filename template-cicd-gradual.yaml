@@ -43,28 +43,22 @@ Resources:
             Path: /weather
             Method: get
             
-  # This is needed so the API GW shows up in Lambda console 
-  # NOTE: This doesn't quite work 02/11/2023
-  # Possibly because SAM doesn't create an "ANY" method, it creates get/delete/put/post/etc.
-  # Possibly because it's creating stages Prod and Stage and not "default"?
-  # I'm leaving this in because it's still a useful pointer to remind that an API GW integration exists.
-  # TODO: Fix it!
-  # APIGWPermission:
-  #   Type: AWS::Lambda::Permission
-  #   Properties:
-  #     FunctionName: !GetAtt PyWeatherDemo.Arn
-  #     Action: lambda:InvokeFunction
-  #     Principal: apigateway.amazonaws.com
-  #     # Such as:
-  #     # arn:partition:execute-api:region:account-id:api-id/stage/http-method/resource-path
-  #     # NOTE: ServerlessRestApi is an implicit things created via SAM when you use an Event of type Api:
-  #     # https://github.com/aws/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  #     #
-  #     # Run this via script?
-  #     # aws lambda add-permission --function-name my-function --action lambda:InvokeFunction --statement-id sns-my-topic \
-  #     # --principal sns.amazonaws.com --source-arn arn:aws:sns:us-east-2:123456789012:my-topic
-  #     #from: https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html#permissions-resource-cleanup
-  #     SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
+  APIGWPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt PyWeatherDemo
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      # Such as:
+      # arn:partition:execute-api:region:account-id:api-id/stage/http-method/resource-path
+      # NOTE: ServerlessRestApi is an implicit things created via SAM when you use an Event of type Api:
+      # https://github.com/aws/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+      #
+      # Run this via script?
+      # aws lambda add-permission --function-name my-function --action lambda:InvokeFunction --statement-id sns-my-topic \
+      # --principal sns.amazonaws.com --source-arn arn:aws:sns:us-east-2:123456789012:my-topic
+      #from: https://docs.aws.amazon.com/lambda/latest/dg/access-control-resource-based.html#permissions-resource-cleanup
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
       
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
   beforeAllowTraffic:
