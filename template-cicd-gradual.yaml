@@ -46,7 +46,7 @@ Resources:
   APIGWPermission:
     Type: AWS::Lambda::Permission
     Properties:
-      FunctionName: !GetAtt PyWeatherDemo
+      FunctionName: !Ref PyWeatherDemo
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
       # Such as:
