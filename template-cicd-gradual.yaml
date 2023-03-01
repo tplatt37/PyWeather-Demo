@@ -16,6 +16,7 @@ Resources:
       CodeUri: src/
       Handler: app.lambda_handler
       Runtime: python3.9
+      Timeout: 30
       # The AutoPublishAlias term tells the framework to detect when the function changes, and then deploy it using the live alias. 
       AutoPublishAlias: live
       Policies:
