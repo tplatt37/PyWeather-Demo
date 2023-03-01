@@ -3,6 +3,7 @@ import os
 import boto3
 import requests
 import json
+import time
 
 def lambda_handler(event, context):
     
@@ -15,6 +16,9 @@ def lambda_handler(event, context):
     location = event['queryStringParameters']['city']
     
     print("Retrieving weather for city = " + location)
+    
+    # Add sleep here to demo concurrent executions easily
+    #time.sleep(5)
     
     weather = get_weather(API_KEY, location)
  
