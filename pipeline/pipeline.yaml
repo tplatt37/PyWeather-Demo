@@ -139,17 +139,17 @@ Resources:
 # \___)\__/(____/(____)(____/(____)(__)  \____/ \__/(__/ 
 #
 
-  FiftyFiftyCanary: 
+  EightyTwentyCanary: 
     Type: 'AWS::CodeDeploy::DeploymentConfig'
     Properties: 
-      DeploymentConfigName: "FiftyFiftyCanary"
+      DeploymentConfigName: "EightyTwentyCanary"
       ComputePlatform: Lambda
       TrafficRoutingConfig:
         Type: "TimeBasedCanary"
         TimeBasedCanary:
           # 5 Minutes - Plenty of time to talk it out, and show Aliases and Deployment in progress in the Console
           CanaryInterval: 5
-          CanaryPercentage: 50
+          CanaryPercentage: 20
 #
 #  ___  __     __   _  _  ____  _  _   __  ____  ___  _  _ 
 # / __)(  )   /  \ / )( \(    \/ )( \ / _\(_  _)/ __)/ )( \
