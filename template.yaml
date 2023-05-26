@@ -18,7 +18,7 @@ Resources:
     Properties:
       CodeUri: src/
       Handler: app.lambda_handler
-      Runtime: python3.8
+      Runtime: python3.10
       Timeout: 30
       Policies:
         - AWSSecretsManagerGetSecretValuePolicy:        # Policy template with placeholder value
