@@ -15,7 +15,7 @@ Resources:
     Properties:
       CodeUri: src/
       Handler: app.lambda_handler
-      Runtime: python3.10
+      Runtime: python3.9
       Timeout: 30
       # The AutoPublishAlias term tells the framework to detect when the function changes, and then deploy it using the live alias. 
       AutoPublishAlias: live
@@ -130,7 +130,7 @@ Resources:
     Properties:
       CodeUri: src-PyWeatherJSON/
       Handler: app.lambda_handler
-      Runtime: python3.10
+      Runtime: python3.9
       Policies:
         - AWSSecretsManagerGetSecretValuePolicy:        # Policy template with placeholder value
             SecretArn: !Ref SecretArn

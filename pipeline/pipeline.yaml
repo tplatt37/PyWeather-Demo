@@ -51,9 +51,9 @@ Resources:
             Type: CODEPIPELINE
         Environment:
             ComputeType: BUILD_GENERAL1_SMALL
-            # Need this for Python3.10
+            # Need 5.0 for Python3.10 or 6.0 for Python3.10
             # https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-available.html
-            Image: aws/codebuild/standard:6.0
+            Image: aws/codebuild/standard:5.0
             PrivilegedMode: true
             Type: LINUX_CONTAINER
             EnvironmentVariables:
