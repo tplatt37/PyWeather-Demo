@@ -1,10 +1,10 @@
 # Step Through Debugging
 
-# VS Code with Remote-SSH
+# VS Code
 
-Assuming you are using VS Code with the Remote-SSH extension installed, it's easy to debug.
+Assuming you are using VS Code, it's easy to debug.
 
-The remote EC2 machine (Linux) must have:
+The local machine must have:
 * SAM CLI
 * Docker
 
@@ -16,6 +16,10 @@ To debug in VSCode:
 5. Modify the "payload" section to:
 "payload": {"path": "/home/ec2-user/environment/PyWeather-Demo/events/event.json"},
 6. Then set some breakpoints in the gutter - and run it!
+
+## Remote-SSH
+
+It's just as easy to debug using the Remote-SSH extension.  Simply ensure the remote ec2 instance has Docker and SAM CLI installed.
 
 
 # Cloud 9
