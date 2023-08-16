@@ -9,9 +9,9 @@ def lambda_handler(event, context):
     
     print(event)
     
-    print("Lambda function ARN *********  !!!!!!!!!!!!!!!!!! :", context.invoked_function_arn)
-    print("Lambda function Version ************** !!!!!!!!:", context.function_version)
-    print("Lambda function memory limits in MB  *********** !!!!!!!:", context.memory_limit_in_mb)
+    print("Lambda function ARN :", context.invoked_function_arn)
+    print("Lambda function Version :", context.function_version)
+    print("Lambda function memory limits in MB :", context.memory_limit_in_mb)
     
     location = event['queryStringParameters']['city']
     
@@ -26,7 +26,7 @@ def lambda_handler(event, context):
     print(weather)  
     
     #Add something to the output we can use to demonstrate code changes
-    weather['PyWeatherVersion'] = "6.0.0"
+    weather['PyWeatherVersion'] = "1.0.0"
     
     print("Lambda time remaining in MS:", context.get_remaining_time_in_millis())
     
