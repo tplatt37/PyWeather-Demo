@@ -14,6 +14,7 @@ To debug in VSCode:
 rm -f ~/environment/.vscode/launch.json
 1. Open Folder
 2. Go to "Run and Debug" menu
+2a. MAKE SURE YOU ARE ON THE TERMINAL TAB AND NOT app.py
 3. Look for option to CREATE the launch.json (this will be stored in .vscode folder)
 3a. Must use the "AWS SAM: Run and Debug Function Locally" option
 4. Locate the appropriate Function section in the launch.json 
