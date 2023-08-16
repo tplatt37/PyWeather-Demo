@@ -130,7 +130,7 @@ Resources:
     Properties:
       CodeUri: src-PyWeatherJSON/
       Handler: app.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.11
       Policies:
         - AWSSecretsManagerGetSecretValuePolicy:        # Policy template with placeholder value
             SecretArn: !Ref SecretArn
