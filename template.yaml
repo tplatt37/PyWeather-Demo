@@ -35,3 +35,7 @@ Outputs:
   PyWeatherDemoRESTApi:
     Description: "API Gateway endpoint URL for Prod stage - change the city as desired."
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/?city=Scranton"
+
+  PyWeatherDemo:
+    Description: "Function ARN."
+    Value: !GetAtt PyWeatherDemo.Arn
