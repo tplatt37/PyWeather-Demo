@@ -10,6 +10,8 @@ The machine must have:
 * Python extension
 
 To debug in VSCode:
+0. REMOVE the ~/environment/.vscode/launch.json
+rm -f ~/environment/.vscode/launch.json
 1. Open Folder
 2. Go to "Run and Debug" menu
 3. Look for option to CREATE the launch.json (this will be stored in .vscode folder)
