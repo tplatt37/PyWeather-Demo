@@ -19,6 +19,9 @@ Resources:
       CodeUri: src/
       Handler: app.lambda_handler
       Runtime: python3.9
+      Architectures:
+        - x86_64 
+        #- arm64 
       Timeout: 30
       Policies:
         - AWSSecretsManagerGetSecretValuePolicy:        # Policy template with placeholder value
