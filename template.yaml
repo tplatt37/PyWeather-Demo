@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Creates the PyWeatherDemo Lambda - a simple Python3.8 Lambda function that helps showcase the basic features of Lambda.
+Description: Creates the PyWeatherDemo Lambda - a simple Python3.x Lambda function that helps showcase the basic features of Lambda.
 
 Parameters:
   SecretArn:
@@ -32,12 +32,36 @@ Resources:
           Properties:
             Path: /weather
             Method: get
-            
+            RestApiId: !Ref PyWeatherApi
+  #
+  # We have a custom Lambda Authorizer on this version
+  #
+  PyWeatherApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      Auth:
+        DefaultAuthorizer: CustomAuthorizer
+        Authorizers:
+          CustomAuthorizer:
+            FunctionArn: !GetAtt AuthorizerLambdaFunction.Arn
+            FunctionPayloadType: REQUEST
+            Identity:
+              Headers:
+                - X-Forwarded-For
+
+  AuthorizerLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: authorizer.handler
+      Runtime: nodejs18.x
+      CodeUri: authorizer/
+
 Outputs:
   # API Gateway endpoint as an output, for convenience
   PyWeatherDemoRESTApi:
     Description: "API Gateway endpoint URL for Prod stage - change the city as desired."
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/weather?city=Scranton"
+    Value: !Sub "https://${PyWeatherApi}.execute-api.${AWS::Region}.amazonaws.com/prod/weather?city=Scranton"
 
   PyWeatherDemo:
     Description: "Function ARN."
