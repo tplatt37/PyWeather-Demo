@@ -29,7 +29,7 @@ exports.handler = (event, context, callback) => {
 	// would check the response in detail.
 	lambda.invoke(lambdaParams, function(err, data) {
 		
-		if (err){	// an error occurred
+		if (err) {	// an error occurred
 			console.log(err, err.stack);
 			lambdaResult = "Failed";
 		}
@@ -49,26 +49,28 @@ exports.handler = (event, context, callback) => {
 				lambdaResult = "Failed";
 			}
 
-			// Complete the PreTraffic Hook by sending CodeDeploy the validation status
-			var params = {
-				deploymentId: deploymentId,
-				lifecycleEventHookExecutionId: lifecycleEventHookExecutionId,
-				status: lambdaResult // status can be 'Succeeded' or 'Failed'
-			};
-			
-			// Pass CodeDeploy the prepared validation test results.
-			codedeploy.putLifecycleEventHookExecutionStatus(params, function(err, data) {
-				if (err) {
-					// Validation failed.
-					console.log("CodeDeploy Status update failed");
-					console.log(err, err.stack);
-					callback("CodeDeploy Status update failed");
-				} else {
-					// Validation succeeded.
-					console.log("CodeDeploy status updated successfully");
-					callback(null, "CodeDeploy status updated successfully");
-				}
-			});
-		}  
+		}
+
+		// Complete the PreTraffic Hook by sending CodeDeploy the validation status
+		var params = {
+			deploymentId: deploymentId,
+			lifecycleEventHookExecutionId: lifecycleEventHookExecutionId,
+			status: lambdaResult // status can be 'Succeeded' or 'Failed'
+		};
+		
+		// Pass CodeDeploy the prepared validation test results.
+		codedeploy.putLifecycleEventHookExecutionStatus(params, function(err, data) {
+			if (err) {
+				// Validation failed.
+				console.log("CodeDeploy Status update failed");
+				console.log(err, err.stack);
+				callback("CodeDeploy Status update failed");
+			} else {
+				// Validation succeeded.
+				console.log("CodeDeploy status updated successfully");
+				callback(null, "CodeDeploy status updated successfully");
+			}
+		});
+
 	});
 }
