@@ -17,6 +17,8 @@ exports.handler = (event, context, callback) => {
 	console.log("Testing new function version: " + functionToTest);
 
 	// Create parameters to pass to the updated Lambda function 
+	// If you want to simulate a HOOK failure, you can change the Payload here to have something 
+	// other than "city" which will cause the Lambda to fail.
 	var lambdaParams = {
 		FunctionName: functionToTest,    
 		Payload: "{\"queryStringParameters\": {\"city\": \"Scranton\"}}", 
