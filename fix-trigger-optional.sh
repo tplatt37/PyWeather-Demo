@@ -7,6 +7,9 @@
 # Replace xxx with the AccountId, and yyy with the Rest API Id
 #
 
+# Pull this info from the stack exports...
+
+
 aws lambda add-permission \
 --function-name zzzzz \
 --action lambda:InvokeFunction \

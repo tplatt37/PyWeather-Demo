@@ -144,3 +144,11 @@ Outputs:
   PyWeatherDemoRESTApi:
     Description: "API Gateway endpoint URL for Prod stage - change the city as desired."
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/weather?city=Scranton"
+
+  PyWeatherDemoAccount:
+    Description: "The account id the lambda is installed into"
+    Value: !Ref AWS::AccountId
+
+  PyWweatherLambdaName:
+    Description: "The physical name of the lambda that was created"
+    Value: !Ref PyWeatherDemo
