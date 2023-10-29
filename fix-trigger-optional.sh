@@ -10,28 +10,20 @@
 # Pull this info from the stack exports...
 echo "This will fix the API GW Trigger Permissions issue that causes an error in the Lambda console UI"
 
-# Retrieve CloudFormation Stack export named "PyWeatherDemoLambdaName"
-LAMBDA_NAME=$(aws cloudformation describe-stacks \
---stack-name PyWeather-Demo \
---query 'Stacks[].Outputs[?OutputKey==`PyWeatherDemoLambdaName`].OutputValue' \
---output text)
+
+LAMBDA_NAME=$(aws cloudformation list-exports --query "Exports[?Name=='PyWeatherDemoLambdaName'].Value" --output text)
 echo "LAMBDA_NAME=$LAMBDA_NAME"
 
-API=$(aws cloudformation describe-stacks \
---stack-name PyWeather-Demo \
---query 'Stacks[].Outputs[?OutputKey==`PyWeatherDemoRestApi`].OutputValue' \
---output text)
-echo "API=$API"
+APIGW=$(aws cloudformation list-exports --query "Exports[?Name=='PyWeatherDemoRestApi'].Value" --output text)
+echo "APIGW=$APIGW"
 
-ACCOUNT_ID=$(aws cloudformation describe-stacks \
---stack-name PyWeather-Demo \
---query 'Stacks[].Outputs[?OutputKey==`PyWeatherDemoAccountId`].OutputValue' \
---output text)
+ACCOUNT_ID=$(aws cloudformation list-exports --query "Exports[?Name=='PyWeatherDemoAccountId'].Value" --output text)
 echo "ACCOUNT_ID=$ACCOUNT_ID"
+
 
 aws lambda add-permission \
 --function-name $LAMBDA_NAME \
 --action lambda:InvokeFunction \
 --statement-id test \
 --principal apigateway.amazonaws.com \
---source-arn arn:aws:execute-api:us-west-2:$ACCOUNT_ID:$API/*/GET/weather
+--source-arn arn:aws:execute-api:us-west-2:$ACCOUNT_ID:$APIGW/*/GET/weather
