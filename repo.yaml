@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: >-
+  PyWeather-Demo : CodeCommit repo  
+
+Parameters:
+
+  CodeBucketName:
+    Type: String
+    Description: "Name of s3 bucket containing the PyWeather-Demo.zip source code - to initialize the repo."
+
+Resources:
+
+  CodeCommitRepo:
+    Type: AWS::CodeCommit::Repository
+    Properties: 
+      Code: 
+        S3:
+          # We initialize the CodeCommit repo contents from this zip.
+          # This ONLY WORKS ON INITIAL CREATE.  You cannot update repo contents through CF.
+          Bucket: !Ref CodeBucketName
+          Key: PyWeather-Demo.zip
+      RepositoryDescription: "The PyWeather-Demo lambda function source code - used in a CI/CD pipeline"
+      RepositoryName: "PyWeather-Demo"
+      Tags:
+        - Key: demo
+          Value: PyWeather-Demo

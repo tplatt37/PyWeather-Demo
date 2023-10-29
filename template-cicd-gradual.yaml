@@ -1,6 +1,7 @@
 AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Creates the PyWeatherDemo Lambda - a simple Python3.8 Lambda function that helps showcase the basic features of Lambda, but uses a more sophisticated rollout.
+Description: >-
+  PyWeather-Demo : Creates the PyWeatherDemo Lambda - a simple Python3.9 Lambda function that helps showcase the basic features of Lambda, but uses a more sophisticated rollout.
 
 Parameters:
   SecretArn:
@@ -15,7 +16,7 @@ Resources:
     Properties:
       CodeUri: src/
       Handler: app.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.11
       Architectures:
         - x86_64 
         #- arm64
@@ -133,7 +134,7 @@ Resources:
     Properties:
       CodeUri: src-PyWeatherJSON/
       Handler: app.lambda_handler
-      Runtime: python3.9
+      Runtime: python3.11
       Policies:
         - AWSSecretsManagerGetSecretValuePolicy:        # Policy template with placeholder value
             SecretArn: !Ref SecretArn
