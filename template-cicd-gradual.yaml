@@ -149,7 +149,7 @@ Outputs:
 
   PyWeatherDemoRestApi:
     Description: "The first portion for a fixup script to use"
-    Value: ${ServerlessRestApi}
+    Value: !Sub "${ServerlessRestApi}"
     Export:
       Name: PyWeatherDemoRestApi  
 
