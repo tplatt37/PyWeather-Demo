@@ -9,7 +9,7 @@ phases:
     commands:
       # These things are helpful to know when troubleshooting a failed build...
       - echo "Python Version..."
-      - echo python3 --version
+      - python3 --version
 
       # Which shell?
       - echo "Using shell..."
