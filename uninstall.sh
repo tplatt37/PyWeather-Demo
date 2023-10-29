@@ -13,9 +13,10 @@ REGION=${AWS_DEFAULT_REGION:-$(aws configure get default.region)}
 UTILITY_BUCKET=$(aws cloudformation list-exports --query "Exports[?Name=='$PREFIX-ArtifactStoreBucket'].Value" --output text)
 
 # Empty the utility bucket (Otherwise stack delete will fail)
-echo "Will empty bucket $UTILITY_BUCKET - to prevent stack delete from failing..."
-aws s3 rm s3://$UTILITY_BUCKET --recursive
-
+if [[ "$UTILITY_BUCKET" != "" ]]; then
+  echo "Will empty bucket $UTILITY_BUCKET - to prevent stack delete from failing..."
+  aws s3 rm s3://$UTILITY_BUCKET --recursive
+fi
 
 # Delete this stack first!
 # But make sure it's not in UPDATE_IN_PROGRESS, because that causes issues.. (it can't be deleted)
