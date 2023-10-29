@@ -6,17 +6,36 @@ phases:
   install:
     runtime-versions:
         python: 3.11
+    commands:
+      # These things are helpful to know when troubleshooting a failed build...
+      - echo "Python Version..."
+      - echo python3 --version
+
+      # Which shell?
+      - echo "Using shell..."
+      - ls -lha $(which sh)
+
+      # AWS CLI version?
+      - aws --version
+
+      # jq version
+      - jq --version
+
   build:
     commands:
       - echo "Use bucket created via the CF template:"
       # NOTE: This env var must be set in the CodeBuild Project. It's where the pipeline stores the artifacts.
       - echo $BUCKET_NAME
+
       - echo "Find the Secret ARN.  The Secret MUST be named openweather-api-key"
       - SECRETARN=$(aws secretsmanager describe-secret --secret-id openweather-api-key | jq -r '.ARN')
       - echo $SECRETARN 
+      
       - echo "Write it out as json for input to the CF template as parameter values"
       - printf '{"Parameters":{"SecretArn":"%s"}}' $SECRETARN > stackparams.json
+      
       - sam build --template-file template-cicd-gradual.yaml
+      
       - sam package --s3-bucket $BUCKET_NAME --output-template-file package.yaml
 artifacts:
   files:
