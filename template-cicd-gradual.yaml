@@ -32,6 +32,9 @@ Resources:
         # NOTE: This is a custom DeploymentConfig to do a 80/20 Canary for 5 minutes (good for demos!)
         # This is defined in pipeline/pipeline.yaml
         Type: EightyTwentyCanary
+        # Another "stock" option - this takes a long time.
+        # Type: CodeDeployDefault.LambdaCanary10Percent5Minutes
+        
         # Specifies Lambda functions for deployment lifecycle hooks
         Hooks:
           # Test the new version before we start allowing invocations
