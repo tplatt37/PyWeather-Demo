@@ -14,6 +14,14 @@ A CI/CD Pipeline is created as well:
 
 ![Diagram - PyWeather CI/CD Pipeline](/diagrams/aws-pyweather-demo-pipeline.png)
 
+# Pre-requisites
+
+To use this - you need:
+1) a Private S3 bucket to use as a place to stage the source code (for creating a CodeCommit repo)
+2) Python3.11 - if you want to build and deploy locally
+3) jq must be installed
+4) Docker - (if showing step-through debugging with SAM CLI)
+5) SAM CLI
 
 # Installation
 
@@ -51,42 +59,14 @@ BUCKETNAME=YOUR_BUCKET_NAME
 echo $BUCKETNAME
 ```
 
-## Create a CodeCommit repo
-
-The CI/CD Pipeline assumes you are using CodeCommit (NOT GitHub)
-
-Follow these steps to create a repo
-```
-aws codecommit create-repository --repository-name "PyWeather-Demo" --repository-description "TEMPORARY - Definitive version lives on GitHub"
-```
-
-Then, simply add that as a new remote , and push to it. 
-
-```
-git remote add codecommit (SSH or HTTPS here)
-git push codecommit
-```
-
-If you run 
-```
-git remote -v
-```
-
-It should look like:
-```
-github  git@github.com:tplatt37/PyWeather-Demo.git (fetch)
-github  git@github.com:tplatt37/PyWeather-Demo.git (push)
-origin  ssh://git-codecommit.us-west-2.amazonaws.com/v1/repos/PyWeather-Demo (fetch)
-origin  ssh://git-codecommit.us-west-2.amazonaws.com/v1/repos/PyWeather-Demo (push)
-```
-
 
 ## Two Ways to Install
 
 The best way to install is to run the CI/CD Pipeline script.  This will create the CI/CD pipeline, which will automatically run and deploy the function too!
+You must provide the name of an S3 bucket that can be used to stage the ZIP of source code (to initialize the CodeCommit repo)
 
 ```
-./install.sh 
+./install.sh "BUCKET_NAME"
 ```
 
 NOTE that the CodeBuild project's buildspec will dynamically find the Secret given the name is static.
@@ -149,12 +129,3 @@ You should DELETE the PyWeather-Demo CodeCommit repository you created.
 
 Finally, manually delete the SecretsManager secret (or leave it for next time)
 
-## Requirements
-
-You need SAM CLI installed 
-
-You need Docker (for step-through debugging demos)
-
-You need Python3.8 installed
-
-You need jq installed
