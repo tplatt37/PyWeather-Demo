@@ -22,6 +22,7 @@ To use this - you need:
 3) jq must be installed
 4) Docker - (if showing step-through debugging with SAM CLI)
 5) SAM CLI
+6) You must have Git Remote CodeCommit (GRC) enabled.
 
 # Installation
 

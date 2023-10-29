@@ -1,8 +1,8 @@
 {
   "name": "before-allow-traffic",
   "version": "1.0.0",
-  "description": "For PyWeatherCICD Demo",
-  "main": "beforeAllowTraffic.js",
+  "description": "For PyWeather-Demo",
+  "main": "beforeAllowTraffic.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

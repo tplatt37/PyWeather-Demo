@@ -117,7 +117,7 @@ Resources:
             Action: 
               - "lambda:InvokeFunction"
             Resource: !Ref PyWeatherDemo.Version
-      Runtime: nodejs16.x
+      Runtime: nodejs18.x
       # Specifies the name of the Lambda hook function      
       FunctionName: 'CodeDeployHook_afterAllowTraffic_PyWeatherDemo'
       DeploymentPreference:

@@ -1,8 +1,8 @@
 {
   "name": "after-allow-traffic",
   "version": "1.0.0",
-  "description": "For PyWeatherCICD Demo",
-  "main": "afterAllowTraffic.js",
+  "description": "For PyWeather-Demo",
+  "main": "afterAllowTraffic.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
