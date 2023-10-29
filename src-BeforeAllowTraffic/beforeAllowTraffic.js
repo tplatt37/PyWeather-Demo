@@ -1,8 +1,14 @@
 'use strict';
     
-const AWS = require('aws-sdk'); 
-const codedeploy = new AWS.CodeDeploy({apiVersion: '2014-10-06'});
-var lambda = new AWS.Lambda();
+//const AWS = require('aws-sdk'); 
+//const codedeploy = new AWS.CodeDeploy({apiVersion: '2014-10-06'});
+//var lambda = new AWS.Lambda();
+
+import { Lambda } from '@aws-sdk/client-lambda';
+const lambda = new LambdaClient();
+
+import { CodeDeploy } from '@aws-sdk/client-codedeploy';
+const codedeploy = new CodeDeployClient();
 
 exports.handler = (event, context, callback) => {
 
@@ -24,7 +30,7 @@ exports.handler = (event, context, callback) => {
 		Payload: "{\"queryStringParameters\": {\"city\": \"Scranton\"}}",  
 		InvocationType: "RequestResponse"
 	};
-
+	
 	var lambdaResult = "Failed";
 	// Invoke the updated Lambda function.
 	// We simply make sure the Lambda works.  A more robust implementation
