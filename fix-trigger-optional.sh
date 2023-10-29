@@ -8,6 +8,7 @@
 #
 
 # Pull this info from the stack exports...
+echo "This will fix the API GW Trigger Permissions issue that causes an error in the Lambda console UI"
 
 # Retrieve CloudFormation Stack export named "PyWeatherDemoLambdaName"
 LAMBDA_NAME=$(aws cloudformation describe-stacks \
