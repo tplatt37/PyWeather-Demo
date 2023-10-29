@@ -14,7 +14,9 @@ PREFIX=PyWeather-Demo
 # and copy it into the S3 bucket.  Cloudformation will use that to seed the CC repo.
 
 # Make sure we don't have this folder local
-rm -rf PyWeather-Demo-github 
+rm -rf PyWeather-Demo-github
+# We'll create/re-create this - so make sure it isn't there. 
+rm -f PyWeather-Demo.zip
 
 echo "Attemping to retrieve latest PyWeather-Demo app source code from git@github.com:tplatt37/PyWeather-Demo.git using ssh..."
 git clone git@github.com:tplatt37/PyWeather-Demo.git PyWeather-Demo-github
