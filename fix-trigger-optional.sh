@@ -10,6 +10,7 @@
 # Pull this info from the stack exports...
 echo "This will fix the API GW Trigger Permissions issue that causes an error in the Lambda console UI"
 
+REGION="us-east-1"
 
 LAMBDA_NAME=$(aws cloudformation list-exports --query "Exports[?Name=='PyWeatherDemoLambdaName'].Value" --output text)
 echo "LAMBDA_NAME=$LAMBDA_NAME"
@@ -24,6 +25,6 @@ echo "ACCOUNT_ID=$ACCOUNT_ID"
 aws lambda add-permission \
 --function-name $LAMBDA_NAME \
 --action lambda:InvokeFunction \
---statement-id test \
+--statement-id "apigw-fix-$APIGW" \
 --principal apigateway.amazonaws.com \
---source-arn arn:aws:execute-api:us-west-2:$ACCOUNT_ID:$APIGW/*/GET/weather
+--source-arn arn:aws:execute-api:$REGION:$ACCOUNT_ID:$APIGW/*/GET/weather
