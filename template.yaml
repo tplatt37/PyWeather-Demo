@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >-
-  PyWeather-Demo : PyWeatherDemo Lambda - a simple Python3.10(?) Lambda function that helps showcase the basic features of Lambda.
+  PyWeather-Demo : PyWeatherDemo Lambda - a simple Python3.11 Lambda function that helps showcase the basic features of Lambda.
 
 Parameters:
   SecretArn:
@@ -29,10 +29,16 @@ Resources:
             SecretArn: !Ref SecretArn
       Events:
         PyWeatherDemo:
+          # Turn it into a REST API via API Gateway
+          # API Gateway - but there's TONS more options to trigger this Lambda.
+          # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-eventsource.html
           Type: Api 
           Properties:
             Path: /weather
             Method: get
+            # Did you know API GW has a 29 second HARD LIMIT on timeout?
+            # You do now.... 
+            TimeoutInMillis: 29000
             
 Outputs:
   # API Gateway endpoint as an output, for convenience

@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion : '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: >-
-  PyWeather-Demo : Creates the PyWeatherDemo Lambda - a simple Python3.9 Lambda function that helps showcase the basic features of Lambda, but uses a more sophisticated rollout.
+  PyWeather-Demo : Creates the PyWeatherDemo Lambda - a simple Python3.11 Lambda function that helps showcase the basic features of Lambda, but uses a more sophisticated rollout.
 
 Parameters:
   SecretArn:
@@ -37,9 +37,9 @@ Resources:
         
         # Specifies Lambda functions for deployment lifecycle hooks
         Hooks:
-          # Test the new version before we start allowing invocations
+          # Test the new version before we start allowing invocations. If this fails, we rollback.
           PreTraffic: !Ref beforeAllowTraffic
-          # Test the new verstion after we start allowing invocations
+          # Test the new verstion after we start allowing invocations. This runs ONCE at the END of the 5 minute canary period. If this fails we roll back.
           PostTraffic: !Ref afterAllowTraffic
       Events:
         PyWeatherDemoGet:
@@ -50,11 +50,14 @@ Resources:
           Properties:
             Path: /weather
             Method: get
+            # Did you know API GW has a 29 second HARD LIMIT on timeout?
+            # You do now.... 
+            TimeoutInMillis: 29000
   
   # NOTE: When you use "Events" above SAM will create an Implicit AWS::Lambda::Permission
   # (Check statck resources - you can see it there)
   # BUT - it DOES NOT show up in the console or command line.
-  # This manualy entry theoretically makes the same settings, but isn't properly recognized by the console.
+  # This manual entry theoretically makes the same settings, but isn't properly recognized by the console (so there will be an error showing - but it is meaningless.)
   # However - it does ensure that the Trigger button is highlighted in the console, 
   # So that is a good reminder that an API GW is set to trigger this lambda.
   APIGWPermission:
@@ -64,7 +67,8 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
       # NOTE: ServerlessRestApi is an implicit Logical ID created by SAM. You won't find it in this template.
-      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
+      #SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/GET/weather'
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ServerlessRestApi}/*/*/${PyWeatherDemo}
       
   # Specifies the BeforeAllowTraffic lifecycle hook Lambda function
   beforeAllowTraffic:
@@ -93,7 +97,7 @@ Resources:
       FunctionName: 'CodeDeployHook_beforeAllowTraffic_PyWeatherDemo'
       DeploymentPreference:
         Enabled: false
-      Timeout: 5
+      Timeout: 10
       Environment:
         Variables:
           NewVersion: !Ref PyWeatherDemo.Version
@@ -125,7 +129,7 @@ Resources:
       FunctionName: 'CodeDeployHook_afterAllowTraffic_PyWeatherDemo'
       DeploymentPreference:
         Enabled: false
-      Timeout: 5
+      Timeout: 10
       Environment:
         Variables:
           NewVersion: !Ref PyWeatherDemo.Version
