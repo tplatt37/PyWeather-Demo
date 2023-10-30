@@ -98,8 +98,7 @@ The CodeCommit repo will be named : PyWeather-Demo
 
 ## NOTE about the API Gateway
 
-It will NOT show up on the Lambda Trigger page, but it's there - go look in API Gateway console.
-The API is a REST API named "PyWeather-Demo"
+If you click the "Trigger" button for API Gateway you'll see an error message in red.  Please ignore it, the API GW invocation URL will be fully functional.   This seems to be a SAM CLI side effect and not quite sure how to fix.
 
 # Invoking the Lambda
 

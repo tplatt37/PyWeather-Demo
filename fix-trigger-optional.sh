@@ -27,6 +27,8 @@ echo "ACCOUNT_ID=$ACCOUNT_ID"
 #
 # We need:
 # arn:aws:execute-api:us-east-1:753157545766:b18b8ga800/*/*/PyWeather-Demo-PyWeatherDemo-vZg0DUIEhUKx
+# NOTE: 2023-10-30 - I've tried multiple permutations of this but can't get the error
+# to go away.
 
 aws lambda add-permission \
 --function-name $LAMBDA_NAME \
