@@ -125,6 +125,25 @@ git commit -am "update" && git push codecommit
 3. Watch CodeDeploy for the deployment.
 4. Use the REST API in API Gateway, which is utilizing the ":live" alias.  Trigger the Lambda repeatedly and you'll see the invocations are split 80%/20% accross the old and new versions. 
 
+## To Demo REST API Caching
+
+REST API in API Gateway has numerous features (that HTTP API does not).
+
+To demo caching:
+1. Go to the API Gateway REST API
+2. Enable caching for the Stage.
+3. Go to the METHOD REQUEST of the /weather GET method and add "city" as a querystring parameter. Make sure the "Caching" option is checked (for per-query string caching!)
+4. Deploy the API
+
+Then, bring up the weather for a new city. 
+(Then again, and again, and again)
+
+You can tell it is cached if:
+* CloudWatch Logs for the Lambda should show only 1 invocation
+* The Time (in Firefox Developer Tools) should be 1/2 second shorter for each subsequent GET
+* DO NOT look at the x-cache header, that IS NOT RELEVANT as per the docs
+
+[Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html)
 
 ## Uninstall
 
