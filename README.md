@@ -92,7 +92,9 @@ This will create the basic Lambda function, which you can then execute in the co
 
 The "install.sh" script uses a ZIP file to create a CodeCommit repo with the application source code.
 
-The CI/CD Pipeline is triggered by commits to the CodeCommit repo. It is NOT triggered from the GitHub repo.
+The CI/CD Pipeline is triggered by commits to the CodeCommit repo. It is NOT triggered from the GitHub repo. 
+
+... so make sure you clone the CodeCommit version of the repo!
 
 The CodeCommit repo will be named : PyWeather-Demo
 
