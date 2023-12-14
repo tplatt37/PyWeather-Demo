@@ -34,6 +34,8 @@ Resources:
         Type: EightyTwentyCanary
         # Another "stock" option - this takes a long time.
         # Type: CodeDeployDefault.LambdaCanary10Percent5Minutes
+        # OR (This one is similar to DSS class) 
+        #Type: Linear10PercentEvery1Minute
         
         # Specifies Lambda functions for deployment lifecycle hooks
         Hooks:
