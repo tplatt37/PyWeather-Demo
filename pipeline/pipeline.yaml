@@ -358,6 +358,7 @@ Resources:
               - Effect: Allow
                 Action:
                   - 'iam:PassRole'
+                  - 'iam:TagRole'
                 Resource: '*'
               - Effect: Allow
                 Action:
@@ -415,6 +416,7 @@ Resources:
                   - 'iam:DetachRolePolicy'
                   - 'iam:PutRolePolicy'
                   - 'iam:GetRole'
+                  - 'iam:TagRole'
                 Resource: '*'
               - Effect: Allow
                 Action:
