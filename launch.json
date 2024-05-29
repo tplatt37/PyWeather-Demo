@@ -6,12 +6,12 @@
             "name": "PyWeather-Demo",
             "invokeTarget": {
                 "target": "template",
-                "templatePath": "/home/ec2-user/environment/PyWeather-Demo/template.yaml",
+                "templatePath": "/home/ec2-user/repo/PyWeather-Demo/template.yaml",
                 "logicalId": "PyWeatherDemo"
             },
             "lambda": {
                 "payload": {
-                    "path": "/home/ec2-user/environment/PyWeather-Demo/events/event.json"
+                    "path": "/home/ec2-user/repo/PyWeather-Demo/events/event.json"
                 },
                 "environmentVariables": {}
             }
