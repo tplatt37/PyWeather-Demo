@@ -62,8 +62,9 @@ Resources:
     Properties:
       Name: PyWeather-Demo-API
       StageName: dev
-      Path: /weather
-      Method: get
+      MethodSettings:
+        - ResourcePath: /weather
+          HttpMethod: GET
       #
       # Tracing is on for this REST API
       # Did you know you can see the COLD START and WARM START delay in X-Ray traces?
