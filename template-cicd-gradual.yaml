@@ -11,6 +11,23 @@ Parameters:
 
 Resources:
 
+  # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html
+  ServerlessRestApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: dev
+      MethodSettings:
+        - ResourcePath: /weather
+          HttpMethod: get
+      #
+      # Tracing is on for this REST API
+      # Did you know you can see the COLD START and WARM START delay in X-Ray traces?
+      #
+      TracingEnabled: true
+      # Did you know API GW REST API has a 29 second HARD LIMIT on timeout?
+      # (HTTP API has a 30 second HARD LIMIT on timeout)
+      TimeoutInMillis: 29000
+
   PyWeatherDemo:
     Type: AWS::Serverless::Function 
     Properties:
@@ -52,27 +69,12 @@ Resources:
           #
           Type: Api 
           Properties:
-            RestApiId: !Ref ServerlessRestApi
+            RestApiId: 
+              !Ref ServerlessRestApi
             Path: /weather
             Method: get
 
-  # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html
-  ServerlessRestApi:
-    Type: AWS::Serverless::Api
-    Properties:
-      Name: PyWeather-Demo-API
-      StageName: dev
-      MethodSettings:
-        - ResourcePath: /weather
-          HttpMethod: get
-      #
-      # Tracing is on for this REST API
-      # Did you know you can see the COLD START and WARM START delay in X-Ray traces?
-      #
-      TracingEnabled: true
-      # Did you know API GW REST API has a 29 second HARD LIMIT on timeout?
-      # (HTTP API has a 30 second HARD LIMIT on timeout)
-      TimeoutInMillis: 29000
+ 
 
   # NOTE: When you use "Events" above SAM will create an Implicit AWS::Lambda::Permission
   # (Check stack resources - you can see it there)
