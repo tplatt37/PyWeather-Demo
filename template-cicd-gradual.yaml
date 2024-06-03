@@ -21,6 +21,8 @@ Resources:
         - x86_64 
         #- arm64
       Timeout: 30
+      # X-Ray tracing enabled. Perms will be added automatically by SAM
+      Tracing: Active
       # The AutoPublishAlias term tells the framework to detect when the function changes, and then deploy it using the live alias. 
       AutoPublishAlias: live
       Policies:
@@ -45,17 +47,32 @@ Resources:
           PostTraffic: !Ref afterAllowTraffic
       Events:
         PyWeatherDemoGet:
-          # This is what is known as an "Implicit API" in SAM. Stages will be Prod/Stage - no way to re-configure
-          # https://github.com/aws/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
+          #
+          # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-api.html
           #
           Type: Api 
           Properties:
+            RestApiId: !Ref ServerlessRestApi
             Path: /weather
             Method: get
-            # Did you know API GW has a 29 second HARD LIMIT on timeout?
-            # You do now.... 
-            TimeoutInMillis: 29000
-  
+
+  # https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-api.html
+  ServerlessRestApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: PyWeather-Demo-API
+      StageName: dev
+      Path: /weather
+      Method: get
+      #
+      # Tracing is on for this REST API
+      # Did you know you can see the COLD START and WARM START delay in X-Ray traces?
+      #
+      TracingEnabled: true
+      # Did you know API GW REST API has a 29 second HARD LIMIT on timeout?
+      # (HTTP API has a 30 second HARD LIMIT on timeout)
+      TimeoutInMillis: 29000
+
   # NOTE: When you use "Events" above SAM will create an Implicit AWS::Lambda::Permission
   # (Check stack resources - you can see it there)
   # BUT - it DOES NOT show up in the console or command line.
