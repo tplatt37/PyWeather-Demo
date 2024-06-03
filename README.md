@@ -147,6 +147,16 @@ You can tell it is cached if:
 
 [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html)
 
+## Showing Cold Start via X-Ray Traces
+
+Did you know you can see the Cold Start (and Warm Start) duration using X-Ray?
+
+To demo this:
+1. Turn on X-Ray tracing for the Prod stage of the REST API (NOTE: HTTP API doesn't support this feature)
+2. Invoke the execution endpoint and show some traces.
+
+
+
 ## Uninstall
 
 To uninstall: 
