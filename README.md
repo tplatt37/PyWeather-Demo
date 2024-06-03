@@ -136,13 +136,22 @@ To demo caching:
 2. Enable caching for the Stage.
 3. Go to the METHOD REQUEST of the /weather GET method and add "city" as a querystring parameter. Make sure the "Caching" option is checked (for per-query string caching!)
 4. Deploy the API
+5. Use curl to invoke at the command line:
+```
+time curl URL
+time curl URL
+time curl URL
+```
+
+First should be slower, as OpenWeatherMap has to be called, but subsequent requests should be much quicker.
+
+You can also "see" the caching if you have enabled X-Ray on the API Gateway Stage (REST API only)
 
 Then, bring up the weather for a new city. 
 (Then again, and again, and again)
 
 You can tell it is cached if:
 * CloudWatch Logs for the Lambda should show only 1 invocation
-* The Time (in Firefox Developer Tools) should be 1/2 second shorter for each subsequent GET
 * DO NOT look at the x-cache header, that IS NOT RELEVANT as per the docs
 
 [Enabling API caching to enhance responsiveness](https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-caching.html)
