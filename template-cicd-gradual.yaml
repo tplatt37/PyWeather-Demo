@@ -18,7 +18,7 @@ Resources:
       StageName: dev
       MethodSettings:
         - ResourcePath: /weather
-          HttpMethod: get
+          HttpMethod: GET
       #
       # Tracing is on for this REST API
       # Did you know you can see the COLD START and WARM START delay in X-Ray traces?
@@ -72,7 +72,7 @@ Resources:
             RestApiId: 
               !Ref ServerlessRestApi
             Path: /weather
-            Method: get
+            Method: GET
 
  
 
