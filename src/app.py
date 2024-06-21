@@ -26,7 +26,7 @@ def lambda_handler(event, context):
     print(weather)  
     
     #Add something to the output we can use to demonstrate code changes
-    weather['PyWeatherVersion'] = "1.0.0"
+    weather['PyWeatherVersion'] = "2.0.0"
     
     print("Lambda time remaining in MS:", context.get_remaining_time_in_millis())
     
