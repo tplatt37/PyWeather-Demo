@@ -423,6 +423,7 @@ Resources:
                   - 'cloudformation:CreateChangeSet'
                   - 'cloudformation:ExecuteChangeSet'
                   - 'cloudwatch:*'
+                  - 'codedeploy:GetApplication'
                   - 'codedeploy:CreateApplication'
                   - 'codedeploy:DeleteApplication'
                   - 'codedeploy:CreateDeploymentGroup'
