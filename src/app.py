@@ -1,6 +1,7 @@
 import sys
 import os
 import boto3
+from botocore.exceptions import ClientError
 import requests
 import json
 import time
@@ -54,7 +55,8 @@ def get_secret():
     # Create a Secrets Manager client
     session = boto3.session.Session()
     client = session.client(
-        service_name='secretsmanager'
+        service_name='secretsmanager',
+        region_name = "us-west-2"
     )
 
     try:
