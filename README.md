@@ -48,7 +48,7 @@ SECRETARN=$(aws secretsmanager describe-secret --secret-id openweather-api-key -
 echo $SECRETARN
 ```
 
-Any region can be used, but us-west-2 is shown in the example commands.
+Any region should work, but us-west-2 is shown here.
 
 ## Specify an S3 bucket to use for the sam build command
 

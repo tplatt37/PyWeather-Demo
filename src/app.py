@@ -56,7 +56,7 @@ def get_secret():
     session = boto3.session.Session()
     client = session.client(
         service_name='secretsmanager',
-        region_name = "us-west-2"
+        region_name = os.environ['AWS_REGION']
     )
 
     try:

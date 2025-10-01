@@ -18,8 +18,8 @@ rm -rf PyWeather-Demo-github
 # We'll create/re-create this - so make sure it isn't there. 
 rm -f PyWeather-Demo.zip
 
-echo "Attemping to retrieve latest PyWeather-Demo app source code from git@github.com:tplatt37/PyWeather-Demo.git using ssh..."
-git clone git@github.com:tplatt37/PyWeather-Demo.git PyWeather-Demo-github
+echo "Attemping to retrieve latest PyWeather-Demo app source code from GitHub."
+git clone https://github.com/tplatt37/PyWeather-Demo.git PyWeather-Demo-github
 if [ $? -eq 128 ]; then
         echo "But... that failed, so we'll use a possibly out of date zip instead."
         cp PyWeather-Demo-fallback.zip PyWeather-Demo.zip
