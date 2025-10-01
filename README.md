@@ -102,7 +102,20 @@ The CodeCommit repo will be named : PyWeather-Demo
 
 If you click the "Trigger" button for API Gateway you'll see an error message in red.  Please ignore it, the API GW invocation URL will be fully functional.   This seems to be a SAM CLI side effect and not quite sure how to fix.
 
-# Invoking the Lambda
+# Invoking the Lambda from "Test"
+
+In the Lambda console, add a Test Event with this Event JSON:
+```
+{
+  "queryStringParameters": {
+    "city" : "Orlando"
+  }
+}
+```
+
+Save the test event in then click "Test"
+
+# Invoking the Lambda from API Gateway
 
 An API Gateway REST API is available.
 
